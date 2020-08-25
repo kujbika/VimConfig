@@ -1,0 +1,16 @@
+{
+    "coc.preferences.formatOnSaveFiletypes": [
+        "scala",
+        "json",
+        "R"
+    ],
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.jediEnabled": false,
+    "codeLens.enable": false,
+    "python.formatting.provider": "yapf",
+    "coc.preferences.formatOnTypeFiletypes": [
+        "scala"
+    ],
+    "metals.statusBarEnabled": true
+}
