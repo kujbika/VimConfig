@@ -3,7 +3,7 @@ syntax on
 let mapleader = ","
 " this is crucial below
 set clipboard+=unnamedplus
-nnoremap <leader><CR> :edit ~/.config/nvim/init.vim<CR>
+noremap <leader><CR> :edit ~/.config/nvim/init.vim<CR>
 set guicursor=
 set noshowmatch
 set relativenumber
@@ -136,7 +136,7 @@ Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
-Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
+Plug 'ThePrimeagen/vim-be-good'
 Plug 'gruvbox-community/gruvbox'
 Plug 'flazz/vim-colorschemes'
 Plug 'tpope/vim-fugitive'
@@ -152,9 +152,12 @@ Plug 'satabin/hocon-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter' 
 Plug 'tpope/vim-surround'
-Plug 'easymotion/vim-easymotion'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'vim-scripts/argtextobj.vim'
+Plug 'easymotion/vim-easymotion' 
+Plug 'terryma/vim-multiple-cursors' 
+Plug 'vim-scripts/argtextobj.vim' 
+Plug 'tommcdo/vim-exchange' 
+Plug 'kana/vim-textobj-entire' 
+Plug 'kana/vim-textobj-user'
 call plug#end()
 
 
