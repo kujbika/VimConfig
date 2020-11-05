@@ -6,6 +6,7 @@ set clipboard+=unnamedplus
 noremap <leader><CR> :edit ~/.config/nvim/init.vim<CR>
 set guicursor=
 set noshowmatch
+set lazyredraw"
 set relativenumber
 set nohlsearch
 set hidden
@@ -33,11 +34,14 @@ set lbr
 set autoindent
 set smarttab
 nmap [b :bnext<CR>
+nmap ]b :bprev<CR>
 noremap ;; :%s:::gc<Left><Left><Left><Left>
+vnoremap <leader>p "_dP
 map <leader>w :w!<CR>
 map <leader>q :q<CR>
 map 0 ^
 :imap jj <ESC>
+tnoremap jj <C-\><C-n>
 inoremap II <ESC>I
 inoremap AA <ESC>A
 nmap <leader>c ciw
@@ -158,9 +162,13 @@ Plug 'vim-scripts/argtextobj.vim'
 Plug 'tommcdo/vim-exchange' 
 Plug 'kana/vim-textobj-entire' 
 Plug 'kana/vim-textobj-user'
+Plug 'jpalardy/vim-slime'
+Plug 'puremourning/vimspector'
+Plug 'szw/vim-maximizer'
+
 call plug#end()
 
-
+let g:slime_target = "neovim"
 " --- vim go (polyglot) settings.
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
@@ -232,7 +240,7 @@ function! EasyMotionCoc() abort
   else
     if g:easymotion#is_active == 1
       let g:easymotion#is_active = 0
-      CocEnable
+      silent! CocEnable
     endif
   endif
 endfunction
