@@ -140,7 +140,6 @@ Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
-Plug 'ThePrimeagen/vim-be-good'
 Plug 'gruvbox-community/gruvbox'
 Plug 'flazz/vim-colorschemes'
 Plug 'tpope/vim-fugitive'
@@ -163,9 +162,9 @@ Plug 'tommcdo/vim-exchange'
 Plug 'kana/vim-textobj-entire' 
 Plug 'kana/vim-textobj-user'
 Plug 'jpalardy/vim-slime'
-Plug 'puremourning/vimspector'
+Plug 'puremourning/vimspector', {'do':'./install_gadget.py'}
 Plug 'szw/vim-maximizer'
-
+Plug 'VimDeathmatch/client'
 call plug#end()
 
 let g:slime_target = "neovim"
@@ -192,6 +191,33 @@ colorscheme gruvbox
 set background=dark
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
+
+fun GotoWindow(id)
+    call win_gotoid(a:id)
+    MaximizerToggle
+endfun
+
+" Debugger remaps
+nnoremap <leader>m :MaximizerToggle!<CR>
+nnoremap <leader>dd :call vimspector#Launch()<CR>
+nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
+nnoremap <leader>dv :call GotoWindow(g:vimspector_session_windows.variables)<CR>
+nnoremap <leader>de :call vimspector#Reset()<CR>
+
+nnoremap <leader>dtcb :call vimspector#ClearLineBreakpoint()<CR>
+
+nmap <leader>dl <Plug>VimspectorStepInto
+nmap <leader>dj <Plug>VimspectorStepOver
+nmap <leader>dk <Plug>VimspectorStepOut
+nmap <leader>dp <Plug>VimspectorPause
+nmap <leader>d_ <Plug>VimspectorRestart
+nnoremap <leader>d<space> :call vimspector#Continue()<CR>
+
+nmap <leader>drc <Plug>VimspectorRunToCursor
+nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
+nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
+
+
 
 set runtimepath^=~/_vim runtimepath+=~/_vim/after
 let &packpath = &runtimepath
