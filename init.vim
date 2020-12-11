@@ -11,6 +11,8 @@ set relativenumber
 set nohlsearch
 set hidden
 set noerrorbells
+filetype indent plugin on
+syntax enable
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -100,6 +102,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <leader>gd <Plug>(coc-definition)
+autocmd FileType cs nmap <leader>gd <Plug>(omnisharp_go_to_definition)
 nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gi <Plug>(coc-implementation)
 nmap <leader>gr <Plug>(coc-references)
@@ -109,6 +112,7 @@ nnoremap <silent> <leader>tf :<C-u>CocCommand metals.revealInTreeView metalsPack
 nnoremap <silent> <leader>sc :<C-u>CocCommand metals.new-scala-file<CR>
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+autocmd FileType cs nmap <silent> K <Plug>(omnisharp_preview_definition)
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -126,7 +130,7 @@ function! s:show_documentation()
 endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
-nmap <leader>a  <Plug>(coc-codeaction)<CR>
+nmap <leader>a  <Plug>(coc-codeaction)<CR> 
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " fzf finder
@@ -163,9 +167,15 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
 Plug 'jpalardy/vim-slime'
 Plug 'puremourning/vimspector', {'do':'./install_gadget.py'}
+Plug 'OmniSharp/omnisharp-vim'
 Plug 'szw/vim-maximizer'
-Plug 'VimDeathmatch/client'
+" Plug 'VimDeathmatch/client'
+Plug 'fcpg/vim-shore'
 call plug#end()
+let g:OmniSharp_start_without_solution = 1
+let g:OmniSharp_selector_ui = 'fzf'
+let g:OmniSharp_selector_findusages = 'fzf'
+autocmd CursorHold *.cs OmniSharpTypeLookup
 
 let g:slime_target = "neovim"
 " --- vim go (polyglot) settings.
@@ -262,7 +272,7 @@ let g:easymotion#is_active = 0
 function! EasyMotionCoc() abort
   if EasyMotion#is_active()
     let g:easymotion#is_active = 1
-    CocDisable
+    silent! CocDisable
   else
     if g:easymotion#is_active == 1
       let g:easymotion#is_active = 0

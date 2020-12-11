@@ -12,5 +12,6 @@
     "coc.preferences.formatOnTypeFiletypes": [
         "scala"
     ],
-    "metals.statusBarEnabled": true
+    "metals.statusBarEnabled": true,
+    "yank.enableCompletion": false
 }
