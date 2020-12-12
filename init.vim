@@ -102,17 +102,19 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <leader>gd <Plug>(coc-definition)
-autocmd FileType cs nmap <leader>gd <Plug>(omnisharp_go_to_definition)
+autocmd FileType cs nmap <buffer> <leader>gd <Plug>(omnisharp_go_to_definition)
 nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gi <Plug>(coc-implementation)
+autocmd FileType cs nmap <buffer> <leader>gi <Plug>(omnisharp_find_implementations)
 nmap <leader>gr <Plug>(coc-references)
+autocmd FileType cs nmap <buffer> <leader>gr <Plug>(omnisharp_find_usages)
 nnoremap <leader>rn :CocSearch <C-R>=expand("<cword>")<CR><CR>
 nnoremap <silent> <leader>tc :<C-u>CocList diagnostics<CR> 
 nnoremap <silent> <leader>tf :<C-u>CocCommand metals.revealInTreeView metalsPackages<CR>
 nnoremap <silent> <leader>sc :<C-u>CocCommand metals.new-scala-file<CR>
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-autocmd FileType cs nmap <silent> K <Plug>(omnisharp_preview_definition)
+autocmd FileType cs nmap <buffer> <silent> K <Plug>(omnisharp_preview_definition)
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -169,7 +171,7 @@ Plug 'jpalardy/vim-slime'
 Plug 'puremourning/vimspector', {'do':'./install_gadget.py'}
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'szw/vim-maximizer'
-" Plug 'VimDeathmatch/client'
+Plug 'machakann/vim-highlightedyank'
 Plug 'fcpg/vim-shore'
 call plug#end()
 let g:OmniSharp_start_without_solution = 1
@@ -251,7 +253,7 @@ nnoremap <silent> <C-l> :call WinMove('l')<CR>
 autocmd StdinReadPre * let s:std_in=1
 
 "fugitive 
-nmap <leader>df :Gdiffsplit!<CR>
+nmap <leader>df :Gvdiffsplit!<CR>
 nmap <leader>gl :diffget //3 <bar> diffupdate<CR>
 nmap <leader>gg :diffget //2 <bar> diffupdate<CR>
 nmap <leader>gp :Git push <CR>
