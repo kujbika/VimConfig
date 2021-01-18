@@ -44,6 +44,7 @@ map <leader>q :q<CR>
 map 0 ^
 :imap jj <ESC>
 tnoremap jj <C-\><C-n>
+tmap <C-h> <C-\><C-n><C-h>
 inoremap II <ESC>I
 inoremap AA <ESC>A
 nmap <leader>c ciw
@@ -86,7 +87,8 @@ endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
-
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
 " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
@@ -109,6 +111,8 @@ autocmd FileType cs nmap <buffer> <leader>gi <Plug>(omnisharp_find_implementatio
 nmap <leader>gr <Plug>(coc-references)
 autocmd FileType cs nmap <buffer> <leader>gr <Plug>(omnisharp_find_usages)
 nnoremap <leader>rn :CocSearch <C-R>=expand("<cword>")<CR><CR>
+autocmd FileType cs nmap <buffer> <leader>rn <Plug>(omnisharp_rename)
+autocmd FileType cs nmap <buffer> <leader><leader>c <Plug>(omnisharp_global_code_check)
 nnoremap <silent> <leader>tc :<C-u>CocList diagnostics<CR> 
 nnoremap <silent> <leader>tf :<C-u>CocCommand metals.revealInTreeView metalsPackages<CR>
 nnoremap <silent> <leader>sc :<C-u>CocCommand metals.new-scala-file<CR>
@@ -176,10 +180,17 @@ Plug 'fcpg/vim-shore'
 call plug#end()
 let g:OmniSharp_start_without_solution = 1
 let g:OmniSharp_selector_ui = 'fzf'
-let g:OmniSharp_selector_findusages = 'fzf'
+let g:OmniSharp_selector_findusages = 'fzf' 
+let g:OmniSharp_popup_options = {
+\ 'winblend': 30,
+\ 'winhl': 'Normal:Normal'
+\}
+" Enable snippet completion, using the ultisnips plugin
+let g:OmniSharp_want_snippet=1
 autocmd CursorHold *.cs OmniSharpTypeLookup
 
 let g:slime_target = "neovim"
+" let g:UltiSnipsExpandTrigger="<tab>"
 " --- vim go (polyglot) settings.
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
